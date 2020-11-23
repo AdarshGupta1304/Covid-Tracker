@@ -1,0 +1,32 @@
+/* Css for the bottom of the Cards */
+.Infected{
+    border-bottom: 15px solid lightblue !important;
+}
+
+.Recovered{
+    border-bottom: 15px solid lightgreen !important;
+}
+
+.Deaths{
+    border-bottom: 15px solid lightcoral !important;
+}
+
+/* Css for the Headings of the Cards */
+.Infectedheading{
+    color: lightblue;
+}
+.Recoveredheading{
+    color: lightgreen;
+}
+.Deathsheading{
+    color: lightcoral;
+}
+
+/* div:hover{
+    cursor: pointer;
+} */
+
+/* 
+@media(max-width < 600px){
+
+} */
