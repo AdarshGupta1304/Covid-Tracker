@@ -5,7 +5,7 @@ import './Line_Chart.css';
 
 import { GlobalHistoricalAPI } from '../API/GlobalDataAPI';
 
-const Line_Chart = () => {
+const LineChart = () => {
 
 
     const [lineData,setLineData] = useState({
@@ -80,4 +80,4 @@ const Line_Chart = () => {
     );
 }
 
-export default Line_Chart;
+export default LineChart;

@@ -1,28 +1,23 @@
 import React, { useState, useEffect, Fragment } from 'react';
 
-
 import './Home.css';
 import Logo from '../components/Logo/Logo';
 import DropDown from '../components/CountryDropDown/DropDown';
 import Cards from '../components/Cards/Cards';
-import CountryTable from '../components/Table/Table';
+// import CountryTable from '../components/Table/Table';
 import {GlobalDataAPI, countrySpecificInfo, countriesList} from '../components/API/GlobalDataAPI';
 
-import Line_Chart from '../components/Chart/LineChart';
+import LineChart from '../components/Chart/LineChart';
 import BarChart from '../components/Chart/BarChart';
 import Map from '../components/Map/Map';
 
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+// import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
-// import ModalDialog from 'react-bootstrap/ModalDialog';
-// import ModalHeader from 'react-bootstrap/ModalHeader';
-// import ModalTitle from 'react-bootstrap/ModalTitle';
-// import ModalBody from 'react-bootstrap/ModalBody';
-// import ModalFooter from 'react-bootstrap/ModalFooter';
+
 
 
 const Home = () => {
@@ -49,7 +44,8 @@ const Home = () => {
   const[countryData,setCountryData] = useState([]);
 
   // Map states
-  const [mapCenter,setMapCenter] = useState({lat: 20.5937, lng: 78.9629});
+  // const myCoord = {lat: 20.5937, lng: 78.9629};
+  const [mapCenter,setMapCenter] = useState([20,77]);
   const [mapZoom,setMapZoom] = useState(3);
 
 
@@ -80,10 +76,13 @@ const Home = () => {
           todayRecovered: data.todayRecovered,
           todayDeaths: data.todayDeaths,
         });
+        
+    setMapZoom(5);
     }
     // console.log('state is ',globalData);
     worldwide();
-  },[country]);
+    console.log(mapCenter,mapZoom);
+  },[mapCenter,country,mapZoom]);
 
 
   // Getting country list and sorting them...
@@ -94,6 +93,7 @@ const Home = () => {
 
             // Sorting the data in descending order on the basis of Number of cases
             data.sort((a,b) => (a.cases < b.cases ? 1 : -1) );
+
             setCountryData(data);
             // console.log('state countryData is11 : ',countryData);
         }
@@ -109,8 +109,8 @@ const Home = () => {
         <Row className="justify-content-center">
         {/* Logo and Dropdown */}
           <Row>
-            <Col md={10}> <Logo /> </Col>
-            <Col md={2}> <DropDown  countryHandler={setCountry} /> </Col>
+            <Col md={10} lg={10}> <Logo /> </Col>
+            <Col md={2} lg={2}> <DropDown  countryHandler={setCountry} mapCoord={setMapCenter} /> </Col>
           </Row>
         
         {/*  */}
@@ -125,23 +125,19 @@ const Home = () => {
           <Col md={4} xs={12} >
             <Button
                 className="d-{xs,sm}-none" 
-                variant="secondary" onClick={handleShow} block my-0>View chart
+                variant="secondary" onClick={handleShow} block>View chart
             </Button>
             <Modal show={show} onHide={handleClose} centered border="primary" size={country === 'Global' ? 'lg' : ''} >
-              <Modal.Header closeButton>
-                <Modal.Title>Chart</Modal.Title>
-              </Modal.Header>
               <Modal.Body>
-                { country === 'Global' ? <Line_Chart /> : <BarChart cases={globalData} country={country} /> }
+                { country === 'Global' ? <LineChart /> : <BarChart cases={globalData} country={country} /> }
               </Modal.Body>
             </Modal>
-            {/* { country === 'Global' ? <Line_Chart /> : <BarChart cases={globalData} country={country} /> } */}
           </Col>
         </Row>
 
         <Row>
           <Col md={8} className="Card"> 
-            <Map center={mapCenter} zoom={mapZoom}/>
+            <Map center={mapCenter} zoom={mapZoom} casesInfo={globalData} countryName={country}  />
           </Col>
           <Col md={4} xs={12}>
               

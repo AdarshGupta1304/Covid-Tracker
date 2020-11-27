@@ -9,5 +9,22 @@
 
 .map .leaflet-container{
     height: 100%;
-    
+}
+
+/* Popup CSS */
+.countryName{
+    color: black;
+    text-decoration: underline;
+}
+
+.infected{
+    color: blue;
+}
+
+.recovered{
+    color: green;
+}
+
+.deaths{
+    color: red;
 }

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { countriesList } from '../API/GlobalDataAPI';
 
 
-const DropDown = ({countryHandler}) => {
+const DropDown = ({countryHandler, mapCoord}) => {
+
 
      
     const [countries,setCountries] = useState([]);
-    // const [photoURL,setPhotoURL] = useState([]);
-
+    // const [flag,setFlag] = useState([]);
+    const [country,setCountry] = useState('');
+    
     useEffect(() => {
         const getAllCountries = async () => {
             let data = await countriesList();
@@ -18,17 +20,44 @@ const DropDown = ({countryHandler}) => {
                 return obj.country;
             } );
             setCountries(countryNames);
-            // setPhotoURL(countryNames[1]);
-            // const countryFlag = data.map( obj => obj.countryInfo.flag );
-            // setPhotoURL(countryFlag[1]);
-               
+
+            // const flagUrl = data.map( obj => obj.countryInfo.flag);
+            // setFlag(flagUrl);
         }
         getAllCountries();
     },[]);
 
     const countrySetter = (event) => {
         countryHandler(event.target.value);
+        setCountry(event.target.value);
+        // console.log(country);
     }
+
+    useEffect( () => {
+
+        const getAllCountries = async () => {
+        let data = await countriesList();
+            
+         data.map( (obj) => {
+            
+            if(country === obj.country){
+                 const lat = obj.countryInfo.lat;
+                 const long = obj.countryInfo.long;
+                 mapCoord([lat,long]);
+                //  console.log('map coordinates are changed! to ',country);
+            }
+        });
+    }
+    getAllCountries();
+
+    }, [country]);
+
+    // const memoizedCountry = useCallback( (event) => {
+    //     countryHandler(event.target.value);
+    //     // setCountry(event.target.value);
+    //     // console.log(country);
+    // },[countryHandler])
+    
     
 
     return(
@@ -41,7 +70,8 @@ const DropDown = ({countryHandler}) => {
                     countries.map( (data,index) => {
                             return <option className="dropdown-item" key={index} value={data}>
                                         {/* <span>  
-                                                <img src={photoURL} alt="flag" 
+                                        console.log(flag[index]);
+                                                <img src={flag[index]} alt="flag" 
                                                     className="flags"
                                                 />
                                             </span> */}
