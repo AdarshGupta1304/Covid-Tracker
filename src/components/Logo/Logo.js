@@ -1,13 +1,17 @@
 import React from 'react';
-import logo from '../../Images/covid19.png';
+// import logo from '../../Images/covid19.png';
+import covid from './Covida.png';
 import './Logo.css';
-
-import Image from 'react-bootstrap/Image';
 
 const Logo = () => {
 
     return(
-        <Image src={logo} className="logo" fluid/>    
+        <section>
+            <h1 className="logo">C
+            <img src={covid} className="rotate" alt="O" />
+            VID19</h1>
+        </section> 
+
     );
 
 }

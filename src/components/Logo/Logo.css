@@ -1,3 +1,31 @@
+
+
+
+/* css for the text of .logo */
 .logo{
     margin: 2vh auto;
+    font-size: 50px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bolder;
+    color: darkred;
+    text-shadow: 2px 2px lightslategrey;
 }
+
+
+
+
+/* Css for the rotation of image of corona virus */
+.rotate{
+    height: 20vh ;
+    animation: rotation 100s infinite linear;
+
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }

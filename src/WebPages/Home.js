@@ -46,7 +46,7 @@ const Home = () => {
   // Map states
   // const myCoord = {lat: 20.5937, lng: 78.9629};
   const [mapCenter,setMapCenter] = useState([20,77]);
-  const [mapZoom,setMapZoom] = useState(3);
+  const [mapZoom,setMapZoom] = useState(1);
 
 
   // Modal for chart
