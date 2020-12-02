@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import './Table.css';
 
+import {test} from '../../util';
+
 const CountryTable = (props) => {
 
     const data = props.countryInfo;
@@ -16,17 +18,19 @@ const CountryTable = (props) => {
         // console.log('countryInfo is : ',data);
         // console.log(Array.isArray(data));
         setCountryData(data);
-    });
+    },[]);
 
     return(
-        <section className="Table-area my-4" size="sm">
-            <h3 className="text-muted font-italic">Cases By Countries</h3>
+        <section className="Table-area my-0" size="sm">
+            {/* <h3 className="text-muted font-italic">Cases By Countries</h3> */}
             <Table striped bordered hover size="sm">
                 <thead className="my-3">
                     <tr>
                         <th>S.No</th>
                         <th>Country</th>
                         <th>Cases</th>
+                        <th>Recovered</th>
+                        <th>Deaths</th>
                     </tr>
                 </thead>
 
@@ -43,7 +47,9 @@ const CountryTable = (props) => {
                                         />
                                     </span>
                                 {value.country}</th>
-                                <th>{value.cases}</th>
+                                <th>{test(Number(value.cases))}</th>
+                                <th>{test(Number(value.recovered))}</th>
+                                <th>{test(Number(value.deaths))}</th>
                             </tr>
                         );
                     } )

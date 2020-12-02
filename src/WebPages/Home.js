@@ -4,12 +4,14 @@ import './Home.css';
 import Logo from '../components/Logo/Logo';
 import DropDown from '../components/CountryDropDown/DropDown';
 import Cards from '../components/Cards/Cards';
-// import CountryTable from '../components/Table/Table';
+import CountryTable from '../components/Table/Table';
 import {GlobalDataAPI, countrySpecificInfo, countriesList} from '../components/API/GlobalDataAPI';
+
 
 import LineChart from '../components/Chart/LineChart';
 import BarChart from '../components/Chart/BarChart';
 import Map from '../components/Map/Map';
+import NewsCards from '../components/NewsCard/NewsCards';
 
 import Button from 'react-bootstrap/Button';
 // import Card from 'react-bootstrap/Card';
@@ -51,9 +53,13 @@ const Home = () => {
 
   // Modal for chart
   const [show,setShow] = useState(false);
+  const [showTable,setShowTable] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleTableClose = () => setShowTable(false);
+  const handleTableShow = () => setShowTable(true);
 
 
 
@@ -81,7 +87,7 @@ const Home = () => {
     }
     // console.log('state is ',globalData);
     worldwide();
-    console.log(mapCenter,mapZoom);
+    // console.log(mapCenter,mapZoom);
   },[mapCenter,country,mapZoom]);
 
 
@@ -123,15 +129,34 @@ const Home = () => {
           </Col>
           {/* Chart on right side */}
           <Col md={4} xs={12} >
-            <Button
-                className="d-{xs,sm}-none" 
-                variant="secondary" onClick={handleShow} block>View chart
-            </Button>
-            <Modal show={show} onHide={handleClose} centered border="primary" size={country === 'Global' ? 'lg' : ''} >
-              <Modal.Body>
-                { country === 'Global' ? <LineChart /> : <BarChart cases={globalData} country={country} /> }
-              </Modal.Body>
-            </Modal>
+            <Row>
+              <Col md={12} style={{marginBottom: '4px' ,}} >
+                <Button
+                  className="d-{xs,sm}-none" 
+                  variant="secondary" onClick={handleShow} block>View chart
+                </Button>
+                <Modal show={show} onHide={handleClose} centered border="primary" size={country === 'Global' ? 'lg' : ''} >
+                  <Modal.Body>
+                    { country === 'Global' ? <LineChart /> : <BarChart cases={globalData} country={country} /> }
+                  </Modal.Body>
+                </Modal>
+              </Col>
+              <Col md={12}>
+                <Button
+                  className="d-{xs,sm}-none" 
+                  variant="secondary" onClick={handleTableShow} block>Cases by Countries 
+              </Button>
+              <Modal show={showTable} onHide={handleTableClose} centered border="primary" size="" >
+                <Modal.Header closeButton>
+                  <Modal.Title>Cases By Countries</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <CountryTable countryInfo={countryData} />
+                </Modal.Body>
+              </Modal>
+              </Col>
+            </Row>
+            
           </Col>
         </Row>
 
@@ -139,8 +164,9 @@ const Home = () => {
           <Col md={8} className="Card"> 
             <Map center={mapCenter} zoom={mapZoom} casesInfo={globalData} countryName={country}  />
           </Col>
+          {/* News section */}
           <Col md={4} xs={12}>
-              
+              <NewsCards />
           </Col>
         </Row>
       </Container>

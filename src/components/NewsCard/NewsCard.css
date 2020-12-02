@@ -1,0 +1,7 @@
+.news-area{
+    width: 100% !important ;
+    height: 78vh !important ;
+    overflow-y: scroll;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
